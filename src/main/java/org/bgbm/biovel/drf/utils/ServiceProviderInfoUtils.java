@@ -25,13 +25,10 @@ public class ServiceProviderInfoUtils {
 		cilist.add(col.getServiceProviderInfo());
 		
 		PESIClient pesi = new PESIClient();
-		cilist.add(pesi.getServiceProviderInfo());
+		cilist.add(pesi.getServiceProviderInfo());		
 		
 		BgbmEditClient bec = new BgbmEditClient();
-		cilist.add(bec.getServiceProviderInfo());
-		
-//		GBIFBetaBackboneClient gbc = new GBIFBetaBackboneClient();
-//		cilist.add(gbc.getChecklistInfo());
+		cilist.add(bec.getServiceProviderInfo());		
 		
 		GBIFBackboneClient gbc = new GBIFBackboneClient();
 		cilist.add(gbc.getServiceProviderInfo());
@@ -87,6 +84,7 @@ public class ServiceProviderInfoUtils {
 								PESIClient.URL,
 								PESIClient.DATA_AGR_URL);
 					}
+
 					if(ci != null) {
 						ciMap.put(key, ci);
 						System.out.println("put key : " + key);
