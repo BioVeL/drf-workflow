@@ -13,6 +13,7 @@ import org.bgbm.biovel.drf.checklist.GBIFBackboneClient;
 import org.bgbm.biovel.drf.checklist.PESIClient;
 import org.bgbm.biovel.drf.checklist.Species2000ColClient;
 import org.bgbm.biovel.drf.checklist.WoRMSClient;
+import org.bgbm.biovel.drf.occurrences.BgbmEditOccurrencesClient;
 import org.bgbm.biovel.drf.occurrences.GBIFOccurrencesClient;
 import org.bgbm.biovel.drf.rest.TaxoRESTClient.ServiceProviderInfo;
 
@@ -45,8 +46,12 @@ public class ServiceProviderInfoUtils {
 		String occurrencesbankInfoList = "[]";
 		List<ServiceProviderInfo> oblist = new ArrayList<ServiceProviderInfo>();
 		
-		GBIFOccurrencesClient gob = new GBIFOccurrencesClient();
-		oblist.add(gob.getServiceProviderInfo());		
+		GBIFOccurrencesClient goc = new GBIFOccurrencesClient();
+		oblist.add(goc.getServiceProviderInfo());		
+		
+		// FIXME : Wait for confirmation before adding new datasource
+		//BgbmEditOccurrencesClient beoc = new BgbmEditOccurrencesClient();
+		//oblist.add(beoc.getServiceProviderInfo());
 		
 		occurrencesbankInfoList = JSONUtils.convertObjectToJson(oblist);
 		return occurrencesbankInfoList;

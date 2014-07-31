@@ -10,6 +10,7 @@ import java.util.Map;
 
 import org.apache.http.HttpHost;
 import org.apache.http.ParseException;
+import org.bgbm.biovel.drf.rest.TaxoRESTClient.ServiceProviderInfo;
 import org.bgbm.biovel.drf.tnr.msg.AcceptedName;
 import org.bgbm.biovel.drf.tnr.msg.NameType;
 import org.bgbm.biovel.drf.tnr.msg.ScrutinyType;
@@ -60,7 +61,13 @@ public class BgbmEditClient extends AggregateChecklistClient {
 				"EDIT - Catalogue Of Life",
 				"http://wp5.e-taxonomy.eu/cdmlib/rest-api-name-catalogue.html",
 				"http://www.catalogueoflife.org/col/info/copyright"));
+		// FIXME : Wait for confirmation before adding new datasource
+//		checklistInfo.addSubChecklist(new ServiceProviderInfo("chenopodiumPilot",
+//				"Chenopodium (Pilot)",
+//				"http://wp5.e-taxonomy.eu/cdmlib/rest-api-name-catalogue.html",
+//				""));
 		setChecklistInfo(checklistInfo);
+
 		return checklistInfo;
 	}	
 
@@ -137,7 +144,6 @@ public class BgbmEditClient extends AggregateChecklistClient {
 					while (atIterator.hasNext()) {		
 						String accTaxonId = atIterator.next();
 						taxonIdQueryMap.put(accTaxonId, query);
-						//System.out.println("Found accepted taxon id : " + accTaxonId);
 					}
 				}
 			} 

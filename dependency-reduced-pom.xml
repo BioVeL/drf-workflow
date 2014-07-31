@@ -4,7 +4,7 @@
   <groupId>biovel.drf</groupId>
   <artifactId>drf-workflow</artifactId>
   <name>drf-workflow</name>
-  <version>1.0.4-SNAPSHOT</version>
+  <version>1.0.5-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
   <build>
     <extensions>
@@ -124,7 +124,7 @@
     <repository>
       <id>wp5.e-taxonomy.eu</id>
       <name>Edit Maven Repository</name>
-      <url>scpexe://wp5.e-taxonomy.eu/var/www/wp5.e-taxonomy.eu/mavenrepo/</url>
+      <url>scpexe://160.45.63.172/var/www/wp5.e-taxonomy.eu/mavenrepo/</url>
     </repository>
   </distributionManagement>
 </project>

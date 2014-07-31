@@ -1,7 +1,6 @@
 package org.bgbm.biovel.drf.checklist;
 
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -20,7 +19,6 @@ import org.bgbm.biovel.drf.tnr.msg.TnrMsg;
 import org.bgbm.biovel.drf.tnr.msg.TnrMsg.Query;
 import org.bgbm.biovel.drf.tnr.msg.TnrResponse;
 import org.bgbm.biovel.drf.tnr.msg.TnrResponse.Synonym;
-
 import org.bgbm.biovel.drf.utils.JSONUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
