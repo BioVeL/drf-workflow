@@ -135,7 +135,7 @@ public class BgbmEditOccurrencesClient extends BaseOccurrencesClient {
 					JSONArray results = (JSONArray) jsonOccResponse.get("records");		
 
 					if(results != null) {				
-						System.out.println("actual results size : " + results.size());
+						logger.info("actual results size : " + results.size());
 						count = (Long) jsonOccResponse.get("count");
 						Iterator<JSONObject> resIterator = results.iterator();
 
@@ -231,7 +231,7 @@ public class BgbmEditOccurrencesClient extends BaseOccurrencesClient {
 							if(jsonOccurence.get("depth") != null) {
 								String depth = CSVUtils.wrapWhenComma(String.valueOf(jsonOccurence.get("depth")));
 								occurrences.append(depth); 
-								System.out.println("depth : " + depth);
+								logger.info("depth : " + depth);
 							} 
 							occurrences.append(",");
 
@@ -258,17 +258,13 @@ public class BgbmEditOccurrencesClient extends BaseOccurrencesClient {
 
 						lastRecord = (Long) jsonOccResponse.get("lastRecord");
 
-						System.out.println("usageKey : " + taxonUuid + 
+						logger.info("usageKey : " + taxonUuid + 
 								", count : " + String.valueOf(jsonOccResponse.get("count")) + 
 								", pageNumber : " + pageNumber + ",  + occ count : " + count);
 						pageNumber++;
 						
-						//FIXME : line below is a work around for the slow occurrence service endpoint
-						//        activating the line will make sure only MAX_PAGING_LIMIT no. of
-						//        occurrence records are retrieved
-						//lastRecord = count;
 					}
-				} while(lastRecord < count);					
+				} while((lastRecord < count) && (lastRecord < getMaxOccurrences()));					
 			}
 		}
 

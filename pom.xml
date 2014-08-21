@@ -103,6 +103,11 @@
 			<artifactId>mail</artifactId>
 			<version>1.4.7</version>
 		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
 	</dependencies>
 
 	<pluginRepositories>
@@ -219,9 +224,9 @@
 	<!-- The location of your plugin site -->
 	<distributionManagement>
 		<repository>
-			<id>wp5.e-taxonomy.eu</id>
+			<id>cybertaxonomy.eu</id>
 			<name>Edit Maven Repository</name>
-			<url>scpexe://wp5.e-taxonomy.eu/var/www/wp5.e-taxonomy.eu/mavenrepo/</url>
+			<url>scpexe://root@cybertaxonomy.eu/var/www/wp5.e-taxonomy.eu/mavenrepo/</url>
 			<layout>default</layout>
 		</repository>
 	</distributionManagement>

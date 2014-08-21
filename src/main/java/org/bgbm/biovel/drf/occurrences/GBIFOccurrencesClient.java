@@ -1,19 +1,15 @@
 package org.bgbm.biovel.drf.occurrences;
 
 import java.net.URI;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.HttpHost;
+import org.apache.log4j.Logger;
 import org.bgbm.biovel.drf.checklist.DRFChecklistException;
-import org.bgbm.biovel.drf.rest.TaxoRESTClient;
-import org.bgbm.biovel.drf.rest.TaxoRESTClient.ServiceProviderInfo;
 import org.bgbm.biovel.drf.utils.CSVUtils;
 import org.bgbm.biovel.drf.utils.JSONUtils;
 import org.json.simple.JSONArray;
@@ -21,14 +17,15 @@ import org.json.simple.JSONObject;
 
 public class GBIFOccurrencesClient extends BaseOccurrencesClient {
 
-
+	private static final Logger logger = Logger.getLogger(GBIFOccurrencesClient.class.getName()); 
 	public static final String ID = "gbif";
 	public static final String LABEL = "GBIF Occurrence Bank";
-	public static final String URL = "http://uat.gbif.org/developer/species";
-	public static final String DATA_AGR_URL = "http://data.gbif.org/tutorial/datauseagreement";
-	// in v0.9 the max limit is 300
+	public static final String URL = "http://www.gbif.org/occurrence";
+	public static final String DATA_AGR_URL = "http://www.gbif.org/disclaimer/datause";
+	
+	// NOTE : v1 also has the bug of max page records as 300
 	private static final String MAX_PAGING_LIMIT = "300";
-	private static final String VERSION = "v0.9";
+	private static final String VERSION = "v1";
 	private static final ServiceProviderInfo CINFO = new ServiceProviderInfo(ID,LABEL,URL,DATA_AGR_URL,VERSION,false);
 
 	private final Map<String, JSONObject> datasetCacheMap = new HashMap<String, JSONObject>();
@@ -83,7 +80,7 @@ public class GBIFOccurrencesClient extends BaseOccurrencesClient {
 
 					JSONObject jsonOccResponse = (JSONObject) JSONUtils.parseJsonToObject(occResponse);
 					JSONArray results = (JSONArray) jsonOccResponse.get("results");		
-					System.out.println("actual results size : " + results.size());
+					logger.info("actual results size : " + results.size());
 					if(results != null) {				
 						Iterator<JSONObject> resIterator = results.iterator();
 
@@ -132,32 +129,24 @@ public class GBIFOccurrencesClient extends BaseOccurrencesClient {
 							} 
 							occurrences.append(",");
 
-							String formattedDate = "";
-					        SimpleDateFormat gbifFormatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-					        SimpleDateFormat biovelFormatter = new SimpleDateFormat("yyyy-MM-dd");
+							String formattedDate = "";					        
+					        if(jsonOccurence.get("year") != null) {
+					        	formattedDate += String.valueOf(jsonOccurence.get("year"));
+					        }
+					        		
+					        if(jsonOccurence.get("month") != null) {
+					        	formattedDate += "-" + String.valueOf(jsonOccurence.get("month"));
+					        }
 					        
-							if(jsonOccurence.get("occurrenceDate") != null) {
-								String strDate = (String) jsonOccurence.get("occurrenceDate");								
-								try {
-									Date date = gbifFormatter.parse(strDate);
-									formattedDate = biovelFormatter.format(date);
-								} catch (ParseException e) {
-									formattedDate = "";
-								}															       
-							} else if((jsonOccurence.get("year") != null) && (jsonOccurence.get("month") != null) && (jsonOccurence.get("day") != null)) {
-								String year = String.valueOf(jsonOccurence.get("year"));
-								String month = String.valueOf(jsonOccurence.get("month"));
-								String day = String.valueOf(jsonOccurence.get("day"));
-								formattedDate = year + "-" + month + "-" + day;
-								System.out.println("date : " + formattedDate);
-							}
+					        if(jsonOccurence.get("day") != null) {
+					        	formattedDate += "-" + String.valueOf(jsonOccurence.get("day"));
+					        }
+					        
 							occurrences.append(CSVUtils.wrapWhenComma(formattedDate)); 					
 							occurrences.append(",");
 
-
-							//if(jsonOccurence.get("occurrenceDate") != null) {
-								occurrences.append(CSVUtils.wrapWhenComma(formattedDate)); 
-							//} 
+							
+							occurrences.append(CSVUtils.wrapWhenComma(formattedDate)); 							
 							occurrences.append(",");
 
 
@@ -188,20 +177,22 @@ public class GBIFOccurrencesClient extends BaseOccurrencesClient {
 							} 
 							occurrences.append(",");
 
-							if(jsonOccurence.get("altitude") != null) {
-								occurrences.append(CSVUtils.wrapWhenComma(String.valueOf(jsonOccurence.get("altitude")))); 
+							if(jsonOccurence.get("elevation") != null) {
+								String elevation = CSVUtils.wrapWhenComma(String.valueOf(jsonOccurence.get("elevation")));
+								occurrences.append(elevation); 
+								logger.info("elevation : " + elevation);
 							} 
 							occurrences.append(",");
 
 							if(jsonOccurence.get("depth") != null) {
 								String depth = CSVUtils.wrapWhenComma(String.valueOf(jsonOccurence.get("depth")));
 								occurrences.append(depth); 
-								System.out.println("depth : " + depth);
+								logger.info("depth : " + depth);
 							} 
 							occurrences.append(",");
 
-							if(jsonOccurence.get("altitude") != null) {
-								occurrences.append(CSVUtils.wrapWhenComma(String.valueOf(jsonOccurence.get("altitude"))));  
+							if(jsonOccurence.get("elevation") != null) {
+								occurrences.append(CSVUtils.wrapWhenComma(String.valueOf(jsonOccurence.get("elevation"))));  
 							} 
 							occurrences.append(",");
 
@@ -243,15 +234,14 @@ public class GBIFOccurrencesClient extends BaseOccurrencesClient {
 
 							if(datasetJsonResponse != null && datasetJsonResponse.get("rights") != null) {
 								occurrences.append(CSVUtils.wrapWhenComma(((String) datasetJsonResponse.get("rights")).replaceAll("\r\n|\r|\n", " "))); 
-								//System.out.println("rights : " + CSVUtils.wrapWhenComma(((String) datasetJsonResponse.get("rights")).replaceAll("\r\n|\r|\n", " ")));
+								
 							}
 							occurrences.append(",");
 
 							if(datasetJsonResponse != null && datasetJsonResponse.get("citation") != null) {
 								JSONObject citationJson = (JSONObject) datasetJsonResponse.get("citation");
 								if(citationJson.get("text") != null) {
-									occurrences.append(CSVUtils.wrapWhenComma(((String) citationJson.get("text")).replaceAll("\r\n|\r|\n", " "))); 
-									
+									occurrences.append(CSVUtils.wrapWhenComma(((String) citationJson.get("text")).replaceAll("\r\n|\r|\n", " "))); 									
 								}						
 							}																				
 							occurrences.append(System.getProperty("line.separator"));
@@ -259,11 +249,12 @@ public class GBIFOccurrencesClient extends BaseOccurrencesClient {
 
 						}
 					}
-					endOfRecords = (Boolean) jsonOccResponse.get("endOfRecords");
-					System.out.println("usageKey : " + usageKey + ", count : " + String.valueOf(jsonOccResponse.get("count")) + ", offset : " + offset + ",  + occ count : " + count);
+					endOfRecords = (Boolean) jsonOccResponse.get("endOfRecords") || (count > getMaxOccurrences());
+					logger.info("usageKey : " + usageKey + ", count : " + String.valueOf(jsonOccResponse.get("count")) + ", offset : " + offset + ",  + occ count : " + count);
 					offset = offset + Integer.parseInt(MAX_PAGING_LIMIT);
+					System.out.println("current occ count : " + count);
 				} while(!endOfRecords);	
-				System.out.println("occ count : " + count);
+				System.out.println("final occ count : " + count);
 			}
 		}
 		return occurrences.toString();

@@ -122,9 +122,9 @@
   </pluginRepositories>
   <distributionManagement>
     <repository>
-      <id>wp5.e-taxonomy.eu</id>
+      <id>cybertaxonomy.eu</id>
       <name>Edit Maven Repository</name>
-      <url>scpexe://160.45.63.172/var/www/wp5.e-taxonomy.eu/mavenrepo/</url>
+      <url>scpexe://root@cybertaxonomy.eu/var/www/wp5.e-taxonomy.eu/mavenrepo/</url>
     </repository>
   </distributionManagement>
 </project>

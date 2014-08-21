@@ -82,6 +82,7 @@ public class TnrMsgUtils {
 			Transformer t = TransformerFactory.newInstance().newTransformer();
 			t.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 			t.setOutputProperty(OutputKeys.INDENT, "yes");
+			t.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			
 			StringWriter sw = new StringWriter();
 			t.transform(new DOMSource(node), new StreamResult(sw));

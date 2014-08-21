@@ -9,6 +9,17 @@ import org.bgbm.biovel.drf.utils.BiovelUtils;
 
 public abstract class BaseOccurrencesClient extends TaxoRESTClient {
 
+	
+	private int maxOccurrences = Integer.MAX_VALUE;
+	
+	public int getMaxOccurrences() {
+		return maxOccurrences;
+	}
+
+	public void setMaxOccurrences(int maxOccurrences) {
+		this.maxOccurrences = maxOccurrences;
+	}
+
 	public String queryOccurrenceBank(List<String> nameids ) throws DRFChecklistException {
 		StringBuilder sb = new StringBuilder();
 		//String header = BiovelUtils.getResourceAsString("/org/bgbm/biovel/drf/occret/occ_csvHeader.txt","UTF-8");
@@ -32,6 +43,8 @@ public abstract class BaseOccurrencesClient extends TaxoRESTClient {
 	}
 	
 	public abstract String getOccurrences(String nameid) throws DRFChecklistException;
+	
+
 	
 	public static String getOccCSVHeader() {
 		return BiovelUtils.getResourceAsString("/org/bgbm/biovel/drf/occret/occ_csvHeader.txt","UTF-8");

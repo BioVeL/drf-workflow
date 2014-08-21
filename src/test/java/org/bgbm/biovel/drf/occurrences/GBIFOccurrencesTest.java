@@ -35,9 +35,10 @@ public class GBIFOccurrencesTest {
 	@BeforeClass 
 	public static void  setup() {				
 		nameCompleteList = new ArrayList<String>();
-		nameCompleteList.add("Ameira divagans");
+		//nameCompleteList.add("Ameira divagans");
 		nameCompleteList.add("Boccardiella ligerica");
 		//nameCompleteList.add("Coscinodiscus wailesii");
+		//nameCompleteList.add("Abies alba");
 			
 	}
 	
@@ -50,6 +51,7 @@ public class GBIFOccurrencesTest {
 	@Test
 	public void getOccurrencesTest() throws DRFChecklistException, IOException {
 		GBIFOccurrencesClient goc = new GBIFOccurrencesClient();
+		goc.setMaxOccurrences(300);
 		String occurrences = goc.queryOccurrenceBank(nameCompleteList);
 		//System.out.println("occurrences : " + occurrences);
 /*		File file = new File("/home/cmathew/Temp/AchilleaMillefolium/occurrences.txt");

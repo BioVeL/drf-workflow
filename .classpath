@@ -66,4 +66,9 @@
   <classpathentry kind="var" path="M2_REPO/axis/axis-wsdl4j/1.5.1/axis-wsdl4j-1.5.1.jar"/>
   <classpathentry kind="var" path="M2_REPO/commons-discovery/commons-discovery/0.5/commons-discovery-0.5.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/apache/httpcomponents/httpmime/4.3.2/httpmime-4.3.2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17.jar" sourcepath="M2_REPO/log4j/log4j/1.2.17/log4j-1.2.17-sources.jar">
+    <attributes>
+      <attribute value="jar:file:/home/cmathew/.m2/repository/log4j/log4j/1.2.17/log4j-1.2.17-javadoc.jar!/" name="javadoc_location"/>
+    </attributes>
+  </classpathentry>
 </classpath>

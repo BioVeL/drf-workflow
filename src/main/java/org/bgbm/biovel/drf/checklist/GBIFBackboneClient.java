@@ -27,10 +27,10 @@ public class GBIFBackboneClient extends AggregateChecklistClient {
 	
 	public static final String ID = "gbif";
 	public static final String LABEL = "GBIF Checklist Bank";
-	public static final String URL = "http://uat.gbif.org/developer/species";
-	public static final String DATA_AGR_URL = "http://data.gbif.org/tutorial/datauseagreement";
+	public static final String URL = "http://www.gbif.org/species/";
+	public static final String DATA_AGR_URL = "http://www.gbif.org/disclaimer/datause";
 	private static final String MAX_PAGING_LIMIT = "1000";
-	private static final String VERSION = "v0.9";
+	private static final String VERSION = "v1";
 	public static final ServiceProviderInfo CINFO = new ServiceProviderInfo(ID,LABEL,URL,DATA_AGR_URL,VERSION,false);
 
 	public GBIFBackboneClient() {
@@ -81,7 +81,7 @@ public class GBIFBackboneClient extends AggregateChecklistClient {
 					String key = (String)result.get("key");
 					String title = (String)result.get("title");
 					
-					String url =  "http://uat.gbif.org/dataset/" + key;
+					String url =  "http://www.gbif.org/dataset/" + key;
 					checklistInfo.addSubChecklist(new ServiceProviderInfo(key, title,  url, DATA_AGR_URL));
 				}
 				
@@ -230,12 +230,12 @@ public class GBIFBackboneClient extends AggregateChecklistClient {
 		Long key = (Long)taxon.get("key");
 		String taxonId = key.toString();
 		AcceptedName.Info info = new AcceptedName.Info();
-		info.setUrl("http://uat.gbif.org/species/" + taxonId);
+		info.setUrl(URL + taxonId);
 		accName.setInfo(info);
 		
 		
 		//FIXME : To fill in		
-		String sourceUrl = "http://uat.gbif.org/species/" + taxonId;
+		String sourceUrl = URL + taxonId;
 	    String sourceDatasetID = "";
 	    String sourceDatasetName = "";
 	    String sourceName = "";
@@ -294,11 +294,11 @@ public class GBIFBackboneClient extends AggregateChecklistClient {
 			Long key = (Long)synonymjs.get("key");
 			String synId = key.toString();
 			Synonym.Info info = new Synonym.Info();
-			info.setUrl("http://uat.gbif.org/species/" + synId);
+			info.setUrl(URL + synId);
 			synonym.setInfo(info);
 						
 			//FIXME : To fill in		
-			String sourceUrl = "http://uat.gbif.org/species/" + synId;
+			String sourceUrl = URL + synId;
 		    String sourceDatasetID =  "";
 		    String sourceDatasetName = "";
 		    String sourceName = "";

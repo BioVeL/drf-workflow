@@ -66,6 +66,7 @@ public abstract class TaxoRESTClient {
 			HttpResponse response = client.execute(request);
 
 			String strResponse = EntityUtils.toString(response.getEntity(),Charset.forName("UTF-8"));
+			
 			System.out.println("<< Response: " + response.getStatusLine());
 			System.out.println(strResponse);
 			System.out.println("==============");

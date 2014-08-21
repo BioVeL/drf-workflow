@@ -29,12 +29,13 @@ public class BgbmEditChecklistTest {
 		parser = new DRFCSVInputParser();
 		
 		nameCompleteList = new ArrayList<String>();
-		nameCompleteList.add("Ameira divagans");
-		nameCompleteList.add("Boccardi redeki");
-		nameCompleteList.add("Bougainvillia rugosa");
-		nameCompleteList.add("Branchiura sowerbyi");
-		nameCompleteList.add("Cercopagis pengoi");
-		nameCompleteList.add("Chelicorophium curvispinum");
+		//nameCompleteList.add("Ameira divagans");
+		//nameCompleteList.add("Boccardi redeki");
+		//nameCompleteList.add("Bougainvillia rugosa");
+		//nameCompleteList.add("Branchiura sowerbyi");
+		//nameCompleteList.add("Cercopagis pengoi");
+		//nameCompleteList.add("Chelicorophium curvispinum");
+		nameCompleteList.add("Boccardiella ligerica");
 		
 		
 		ci = new ServiceProviderInfo(BgbmEditClient.ID,
@@ -56,7 +57,8 @@ public class BgbmEditChecklistTest {
 	@Test
 	public void nameCompleteTest() throws DRFChecklistException, DRFInputException, JAXBException, TnrMsgException {
 		parser = new DRFCSVInputParser();
-		List<TnrMsg> tnrMsgs = parser.parse(BiovelUtils.getResourceAsString("/org/bgbm/biovel/drf/tnr/vibrant.csv","UTF-8"));
+		List<TnrMsg> tnrMsgs = TnrMsgUtils.convertStringListToTnrMsgList(nameCompleteList);
+		//List<TnrMsg> tnrMsgs = parser.parse(BiovelUtils.getResourceAsString("/org/bgbm/biovel/drf/tnr/vibrant.csv","UTF-8"));
 		//List<TnrMsg> tnrMsgs = parser.parse(BiovelUtils.getResourceAsString("/org/bgbm/biovel/drf/tnr/nameCompleteOnly.csv","UTF-8"));		
 		TnrMsg tnrMsg = TnrMsgUtils.mergeTnrMsgs(tnrMsgs);
 		BgbmEditClient bec = new BgbmEditClient(JSONUtils.convertObjectToJson(ci));

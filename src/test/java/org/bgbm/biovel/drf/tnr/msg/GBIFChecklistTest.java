@@ -31,18 +31,18 @@ public class GBIFChecklistTest {
 		parser = new DRFCSVInputParser();
 		
 		nameCompleteList = new ArrayList<String>();
-		nameCompleteList.add("Ameira divagans");
+//		nameCompleteList.add("Ameira divagans");
 		nameCompleteList.add("Boccardiella ligerica");
-		nameCompleteList.add("Bougainvillia rugosa");
-		nameCompleteList.add("Branchiura sowerbyi");
-		nameCompleteList.add("Cercopagis pengoi");
-		nameCompleteList.add("Chelicorophium curvispinum");
+//		nameCompleteList.add("Bougainvillia rugosa");
+//		nameCompleteList.add("Branchiura sowerbyi");
+//		nameCompleteList.add("Cercopagis pengoi");
+//		nameCompleteList.add("Chelicorophium curvispinum");
 		
 		ci = new ServiceProviderInfo(GBIFBackboneClient.ID,
 				GBIFBackboneClient.LABEL,
 				GBIFBackboneClient.URL,
 				GBIFBackboneClient.DATA_AGR_URL);
-		ci.addSubChecklist(new ServiceProviderInfo("d7dddbf4-2cf0-4f39-9b2a-bb099caae36c", "GBIF NUB Taxonomy", "http://uat.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"));
+		ci.addSubChecklist(new ServiceProviderInfo("d7dddbf4-2cf0-4f39-9b2a-bb099caae36c", "GBIF NUB Taxonomy", "http://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36c"));
 	}
 	
 	@Test
